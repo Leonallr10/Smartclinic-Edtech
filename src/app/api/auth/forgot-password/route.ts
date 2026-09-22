@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import crypto from 'crypto';
 
@@ -6,14 +6,31 @@ function hashToken(token: string) {
   return crypto.createHash('sha256').update(token).digest('hex');
 }
 
-export async function POST(req: Request) {
+function appOrigin(req: NextRequest) {
+  const origin = req.headers.get('origin');
+  if (origin) return origin.replace(/\/$/, '');
+
+  const forwardedHost = req.headers.get('x-forwarded-host');
+  const forwardedProto = req.headers.get('x-forwarded-proto') || 'https';
+  if (forwardedHost) return `${forwardedProto}://${forwardedHost}`.replace(/\/$/, '');
+
+  const host = req.headers.get('host');
+  if (host) {
+    const proto = host.includes('localhost') || host.startsWith('127.') ? 'http' : 'https';
+    return `${proto}://${host}`;
+  }
+
+  return (process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000').replace(/\/$/, '');
+}
+
+export async function POST(req: NextRequest) {
   try {
     const { email } = await req.json();
 
     if (!email) {
       return NextResponse.json(
         { message: 'If an account with that email exists, a reset link has been sent.' },
-        { status: 200 }
+        { status: 200 },
       );
     }
 
@@ -32,12 +49,15 @@ export async function POST(req: Request) {
         },
       });
 
-      const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/auth/reset-password?token=${rawToken}`;
+      const path = `/auth/reset-password?token=${rawToken}`;
+      const resetUrl = `${appOrigin(req)}${path}`;
       console.log(`\n[RESET LINK] ${resetUrl}\n`);
 
       return NextResponse.json({
         message: 'If an account with that email exists, a reset link has been generated.',
-        resetLink: resetUrl,
+        // Relative path so the button stays on the same host (avoids localhost mismatch)
+        resetLink: path,
+        resetUrl,
       });
     }
 

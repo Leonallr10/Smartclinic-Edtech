@@ -50,6 +50,10 @@ function LoginForm() {
     }
   }
 
+  const forgotHref = email
+    ? `/auth/forgot-password?email=${encodeURIComponent(email)}`
+    : '/auth/forgot-password';
+
   return (
     <AuthCard
       title="Welcome back"
@@ -88,7 +92,15 @@ function LoginForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="password">Password</Label>
+          <div className="flex items-center justify-between gap-2">
+            <Label htmlFor="password">Password</Label>
+            <Link
+              href={forgotHref}
+              className="text-xs font-medium text-violet-600 hover:underline dark:text-violet-400"
+            >
+              Forgot password?
+            </Link>
+          </div>
           <Input
             id="password"
             type="password"

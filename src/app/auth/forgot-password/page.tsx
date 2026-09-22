@@ -1,16 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { ArrowLeft, Loader2, Mail } from 'lucide-react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { AuthCard } from '@/components/marketing/auth-card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
-export default function ForgotPasswordPage() {
-  const [email, setEmail] = useState('');
+function ForgotPasswordForm() {
+  const searchParams = useSearchParams();
+  const [email, setEmail] = useState(searchParams.get('email') || '');
   const [isLoading, setIsLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -33,7 +35,7 @@ export default function ForgotPasswordPage() {
         setSubmitted(true);
         if (data.resetLink) setResetLink(data.resetLink);
       } else {
-        setError('Something went wrong. Please try again.');
+        setError(data.error || 'Something went wrong. Please try again.');
       }
     } catch {
       setError('Something went wrong. Please try again.');
@@ -43,79 +45,89 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader className="text-center space-y-1">
-        <CardTitle className="text-2xl font-bold">Reset your password</CardTitle>
-        <CardDescription>
-          {submitted
-            ? 'Check your email for a reset link'
-            : 'Enter your email and we\'ll send you a reset link'}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        {error && (
-          <Alert variant="destructive" className="mb-4">
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
-        )}
+    <AuthCard
+      title={submitted ? 'Check your inbox' : 'Reset your password'}
+      description={
+        submitted
+          ? 'A password reset link has been generated for your account'
+          : "Enter your email and we'll generate a secure reset link"
+      }
+      footer={
+        <p className="text-center text-sm text-muted-foreground">
+          <Link
+            href="/auth/login"
+            className="inline-flex items-center gap-1 font-medium text-violet-600 hover:underline dark:text-violet-400"
+          >
+            <ArrowLeft className="size-3" />
+            Back to login
+          </Link>
+        </p>
+      }
+    >
+      {error && (
+        <Alert variant="destructive">
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
 
-        {submitted ? (
-          <div className="space-y-4 text-center">
-            <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-              <Mail className="size-6 text-primary" />
-            </div>
-            <p className="text-sm text-muted-foreground">
-              If an account exists for <span className="font-medium text-foreground">{email}</span>,
-              a reset link has been generated.
-            </p>
-
-            {resetLink && (
-              <Link
-                href={resetLink}
-                className="inline-block w-full px-4 py-2.5 bg-primary text-primary-foreground text-sm font-medium rounded-lg hover:bg-primary/90 transition"
-              >
-                Reset my password
-              </Link>
-            )}
-
-            <Link href="/auth/login">
-              <Button variant="outline" className="w-full mt-2">
-                <ArrowLeft className="size-4 mr-2" />
-                Back to login
-              </Button>
-            </Link>
+      {submitted ? (
+        <div className="space-y-4 text-center">
+          <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-violet-500/10">
+            <Mail className="size-6 text-violet-600 dark:text-violet-400" />
           </div>
-        ) : (
-          <>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="you@example.com"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  disabled={isLoading}
-                />
-              </div>
+          <p className="text-sm text-muted-foreground">
+            If an account exists for{' '}
+            <span className="font-medium text-foreground">{email}</span>, use the button below
+            to set a new password. The link expires in 1 hour.
+          </p>
 
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading && <Loader2 className="size-4 animate-spin mr-2" />}
-                Send reset link
-              </Button>
-            </form>
+          {resetLink && (
+            <Button asChild className="h-11 w-full rounded-full bg-violet-600 hover:bg-violet-500">
+              <Link href={resetLink}>Reset my password</Link>
+            </Button>
+          )}
 
-            <p className="mt-6 text-center text-sm text-muted-foreground">
-              <Link href="/auth/login" className="text-primary font-medium hover:underline inline-flex items-center gap-1">
-                <ArrowLeft className="size-3" />
-                Back to login
-              </Link>
+          {!resetLink && (
+            <p className="text-xs text-muted-foreground">
+              No account was found for that email, or a link could not be created. Try again with a
+              registered address.
             </p>
-          </>
-        )}
-      </CardContent>
-    </Card>
+          )}
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="you@example.com"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              disabled={isLoading}
+              className="h-11 rounded-xl border-border/80 bg-background/60 focus-visible:border-violet-500/40 focus-visible:ring-violet-500/20"
+            />
+          </div>
+
+          <Button
+            type="submit"
+            className="h-11 w-full rounded-full bg-violet-600 hover:bg-violet-500"
+            disabled={isLoading}
+          >
+            {isLoading && <Loader2 className="mr-2 size-4 animate-spin" />}
+            Send reset link
+          </Button>
+        </form>
+      )}
+    </AuthCard>
+  );
+}
+
+export default function ForgotPasswordPage() {
+  return (
+    <Suspense fallback={<div className="text-sm text-muted-foreground">Loading...</div>}>
+      <ForgotPasswordForm />
+    </Suspense>
   );
 }
