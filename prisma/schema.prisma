@@ -1,0 +1,128 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  PATIENT
+  DOCTOR
+  ADMIN
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id               String    @id @default(uuid())
+  name             String
+  email            String    @unique
+  password         String
+  role             Role
+  isActive         Boolean   @default(true)
+  createdAt        DateTime  @default(now())
+  resetToken       String?   @unique
+  resetTokenExpiry DateTime?
+
+  patient   Patient?
+  doctor    Doctor?
+}
+
+model Patient {
+  id          String   @id @default(uuid())
+  userId      String   @unique
+  phone       String?
+  dateOfBirth DateTime?
+  bloodGroup  String?
+  address     String?
+  createdAt   DateTime @default(now())
+
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  appointments   Appointment[]
+  symptomChecks  SymptomCheck[]
+  medicalRecords MedicalRecord[]
+  prescriptions  Prescription[]
+}
+
+model Doctor {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  specialisation  String?
+  licenseNumber   String?
+  experienceYears Int?
+  bio             String?
+  isAvailable     Boolean  @default(true)
+  isVerified      Boolean  @default(false)
+
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  appointments   Appointment[]
+  medicalRecords MedicalRecord[]
+  prescriptions  Prescription[]
+}
+
+model Appointment {
+  id           String            @id @default(uuid())
+  patientId    String
+  doctorId     String
+  scheduledAt  DateTime
+  durationMins Int               @default(30)
+  status       AppointmentStatus @default(PENDING)
+  notes        String?
+  createdAt    DateTime          @default(now())
+
+  patient        Patient         @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctor         Doctor          @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  medicalRecords MedicalRecord[]
+}
+
+model SymptomCheck {
+  id            String   @id @default(uuid())
+  patientId     String
+  symptoms      String
+  aiUrgency     String
+  aiSuggestion  String
+  aiRawResponse String?
+  checkedAt     DateTime @default(now())
+
+  patient Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+}
+
+model MedicalRecord {
+  id            String   @id @default(uuid())
+  patientId     String
+  doctorId      String
+  appointmentId String
+  diagnosis     String
+  symptoms      String
+  aiSummary     String?
+  recordedAt    DateTime @default(now())
+
+  patient      Patient        @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctor       Doctor         @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+  appointment  Appointment    @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
+  prescriptions Prescription[]
+}
+
+model Prescription {
+  id           String   @id @default(uuid())
+  recordId     String
+  patientId    String
+  doctorId     String
+  medications  String
+  instructions String
+  validUntil   DateTime?
+  createdAt    DateTime @default(now())
+
+  record  MedicalRecord @relation(fields: [recordId], references: [id], onDelete: Cascade)
+  patient Patient       @relation(fields: [patientId], references: [id], onDelete: Cascade)
+  doctor  Doctor        @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+}
