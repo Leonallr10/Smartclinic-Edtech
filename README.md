@@ -136,6 +136,18 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+### Demo credentials
+
+Use these accounts to explore the app after seeding / connecting to the project database:
+
+| Role | Email | Password |
+|------|--------|----------|
+| **Admin** | `admin@smartclinic.com` | `Admin@123` |
+
+- Admin cannot be created from the public register page (Patient / Doctor only).
+- After login, open `/admin/dashboard` to manage users and verify doctors.
+- If the password was changed, use **Forgot password?** on `/auth/login` to reset it.
+
 ## Project Structure
 
 ```
