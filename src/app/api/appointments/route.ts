@@ -2,6 +2,15 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { verifyToken } from '@/lib/auth';
 import { appointmentCreateSchema } from '@/lib/validations';
+import type { AppointmentStatus } from '@prisma/client';
+
+function parseStatus(status: string | null): AppointmentStatus | undefined {
+  if (!status) return undefined;
+  const allowed: AppointmentStatus[] = ['PENDING', 'CONFIRMED', 'COMPLETED', 'CANCELLED'];
+  return allowed.includes(status as AppointmentStatus)
+    ? (status as AppointmentStatus)
+    : undefined;
+}
 
 export async function GET(req: NextRequest) {
   const user = await verifyToken(req);
@@ -9,7 +18,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const status = req.nextUrl.searchParams.get('status');
+  const statusFilter = parseStatus(req.nextUrl.searchParams.get('status'));
 
   let appointments;
 
@@ -20,7 +29,7 @@ export async function GET(req: NextRequest) {
     appointments = await prisma.appointment.findMany({
       where: {
         patientId: patient.id,
-        ...(status && { status: status as any }),
+        ...(statusFilter && { status: statusFilter }),
       },
       include: {
         doctor: { include: { user: { select: { name: true } } } },
@@ -34,7 +43,7 @@ export async function GET(req: NextRequest) {
     appointments = await prisma.appointment.findMany({
       where: {
         doctorId: doctor.id,
-        ...(status && { status: status as any }),
+        ...(statusFilter && { status: statusFilter }),
       },
       include: {
         patient: { include: { user: { select: { name: true } } } },

@@ -1,6 +1,4 @@
-'use client';
-
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Loader2 } from 'lucide-react';
@@ -17,12 +15,10 @@ function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
-
-  useEffect(() => {
-    if (searchParams.get('error') === 'inactive') {
-      setError('Your account has been deactivated. Contact an administrator.');
-    }
-  }, [searchParams]);
+  const inactiveMessage =
+    searchParams.get('error') === 'inactive'
+      ? 'Your account has been deactivated. Contact an administrator.'
+      : '';
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -54,6 +50,8 @@ function LoginForm() {
     ? `/auth/forgot-password?email=${encodeURIComponent(email)}`
     : '/auth/forgot-password';
 
+  const displayError = error || inactiveMessage;
+
   return (
     <AuthCard
       title="Welcome back"
@@ -70,9 +68,9 @@ function LoginForm() {
         </p>
       }
     >
-      {error && (
+      {displayError && (
         <Alert variant="destructive">
-          <AlertDescription>{error}</AlertDescription>
+          <AlertDescription>{displayError}</AlertDescription>
         </Alert>
       )}
 

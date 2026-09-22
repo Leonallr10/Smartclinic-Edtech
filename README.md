@@ -148,6 +148,22 @@ Use these accounts to explore the app after seeding / connecting to the project 
 - After login, open `/admin/dashboard` to manage users and verify doctors.
 - If the password was changed, use **Forgot password?** on `/auth/login` to reset it.
 
+### Testing & CI/CD
+
+```bash
+npm run lint          # ESLint
+npm run test          # Jest unit tests
+npm run test:e2e      # Playwright E2E (defaults to the live deploy URL)
+npm run ci            # lint + unit tests + build
+```
+
+GitHub Actions runs on every push/PR to `main`:
+
+1. **Lint, unit tests & build**
+2. **Playwright E2E** against [https://smartclinic-edtech.vercel.app](https://smartclinic-edtech.vercel.app/) (override with repo variable `E2E_BASE_URL`)
+
+Optional secrets: `E2E_ADMIN_EMAIL`, `E2E_ADMIN_PASSWORD` (defaults to the demo admin above).
+
 ## Project Structure
 
 ```
@@ -180,7 +196,9 @@ prisma/
 
 ## Deployment
 
-Deployed on [Vercel](https://vercel.com) with Supabase PostgreSQL.
+Live app: [https://smartclinic-edtech.vercel.app](https://smartclinic-edtech.vercel.app/)
+
+Deployed on [Vercel](https://vercel.com) with Supabase PostgreSQL. Continuous integration is configured via GitHub Actions (`.github/workflows/ci.yml`).
 
 ```bash
 npm run build   # Runs prisma generate + next build
