@@ -14,7 +14,7 @@ const doctorPassword = process.env.E2E_DOCTOR_PASSWORD || 'Doctor@123';
 const adminEmail = process.env.E2E_ADMIN_EMAIL || 'admin@smartclinic.com';
 const adminPassword = process.env.E2E_ADMIN_PASSWORD || 'Admin@123';
 
-async function signOut(page: import('@playwright/test').Page, _namePattern?: RegExp) {
+async function signOut(page: import('@playwright/test').Page) {
   await page
     .getByRole('button')
     .filter({ hasText: /patient|doctor|admin/i })
