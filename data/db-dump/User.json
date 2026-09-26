@@ -1,0 +1,29 @@
+[
+  {
+    "id": "66a9f9cb-efce-4508-8947-5b99ffda9c28",
+    "name": "Demo Doctor",
+    "email": "doctor@smartclinic.com",
+    "password": "$2b$10$qjecGf4ZaxD.6vy4.0K/nuUnOQiLbmaOxBXU1XF1JgF0a0evToPmW",
+    "role": "DOCTOR",
+    "isActive": true,
+    "createdAt": "2026-09-26T01:56:15.642Z"
+  },
+  {
+    "id": "a9a0fb63-e36a-46e3-8d39-f01817de0e7e",
+    "name": "Admin",
+    "email": "admin@smartclinic.com",
+    "password": "$2b$10$K0Hxf2YO9qSvrjsMuFhvYO0iR0SClhQL1lNtPX6ZcKpAebVO4G7X2",
+    "role": "ADMIN",
+    "isActive": true,
+    "createdAt": "2026-05-11T00:08:28.753Z"
+  },
+  {
+    "id": "540cc8a3-28d8-4b99-b21c-de2bb6900c89",
+    "name": "Demo Patient",
+    "email": "patient@smartclinic.com",
+    "password": "$2b$10$vGSwJY4t.ZrZYzk.eVrgCOKPXs28idgEgbgLyHV54asH38DKGl6.C",
+    "role": "PATIENT",
+    "isActive": true,
+    "createdAt": "2026-09-26T01:56:15.642Z"
+  }
+]

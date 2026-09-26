@@ -26,8 +26,9 @@ export default function SymptomChecker() {
   return (
     <div className="mx-auto max-w-2xl space-y-6">
       <div className="space-y-3">
-        <Label>Describe your symptoms</Label>
+        <Label htmlFor="symptoms">Describe your symptoms</Label>
         <Textarea
+          id="symptoms"
           className="h-28 resize-none"
           placeholder="e.g. I have a persistent headache for 2 days, mild fever, and sore throat..."
           value={symptoms}

@@ -10,7 +10,12 @@
     "test": "jest",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
+    "db:seed": "npx tsx prisma/seed.ts",
+    "db:dump": "node scripts/export-db-dump.mjs",
     "ci": "npm run lint && npm run test && npm run build"
+  },
+  "prisma": {
+    "seed": "npx tsx prisma/seed.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
@@ -55,12 +60,14 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^18.0.4",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
     "jest": "^30.3.0",
     "prisma": "^7.8.0",
     "tailwindcss": "^4",
     "ts-jest": "^29.4.9",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }

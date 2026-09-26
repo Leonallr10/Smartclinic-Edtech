@@ -1,8 +1,13 @@
 import { SignJWT, jwtVerify } from 'jose';
 import { NextRequest } from 'next/server';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-key-for-development';
-const secretKey = new TextEncoder().encode(JWT_SECRET);
+function getJwtSecretKey() {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    throw new Error('JWT_SECRET environment variable is required');
+  }
+  return new TextEncoder().encode(secret);
+}
 
 export interface TokenPayload {
   id: string;
@@ -14,7 +19,7 @@ export async function signToken(payload: TokenPayload): Promise<string> {
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setExpirationTime('1d')
-    .sign(secretKey);
+    .sign(getJwtSecretKey());
 }
 
 export async function verifyToken(req: NextRequest): Promise<TokenPayload | null> {
@@ -23,7 +28,7 @@ export async function verifyToken(req: NextRequest): Promise<TokenPayload | null
   if (!token) return null;
 
   try {
-    const { payload } = await jwtVerify(token, secretKey);
+    const { payload } = await jwtVerify(token, getJwtSecretKey());
     return payload as unknown as TokenPayload;
   } catch {
     return null;

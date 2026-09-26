@@ -1,0 +1,12 @@
+[
+  {
+    "id": "621914b5-5a6e-4b40-9249-2a9dc150bc0a",
+    "userId": "66a9f9cb-efce-4508-8947-5b99ffda9c28",
+    "specialisation": "General Medicine",
+    "licenseNumber": "DEMO-DOC-001",
+    "experienceYears": 8,
+    "bio": "Demo doctor account for reviewers.",
+    "isAvailable": true,
+    "isVerified": true
+  }
+]

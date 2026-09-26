@@ -1,0 +1,92 @@
+[
+  {
+    "id": "d67ddce2-e6fb-4f97-a6fb-60ec04f42f18",
+    "patientId": "2569c34f-90a9-4db2-ad20-f6ec2ecb8376",
+    "symptoms": "Persistent headache for two days with mild fever and sore throat",
+    "aiUrgency": "MEDIUM",
+    "aiSuggestion": "See a general physician within 2-3 days for evaluation.",
+    "aiRawResponse": "{\"urgency\":\"MEDIUM\",\"suggestion\":\"See a general physician within 2-3 days for evaluation.\",\"possibleConditions\":[\"viral upper respiratory infection\",\"sinusitis\"],\"redFlags\":[],\"selfCare\":[\"rest\",\"stay hydrated\",\"take over-the-counter pain relievers\",\"warm saltwater gargle\"]}",
+    "checkedAt": "2026-09-26T02:03:38.588Z"
+  },
+  {
+    "id": "836f322d-9299-468b-9294-5a695a02e3dc",
+    "patientId": "2569c34f-90a9-4db2-ad20-f6ec2ecb8376",
+    "symptoms": "Persistent headache for two days with mild fever and sore throat",
+    "aiUrgency": "MEDIUM",
+    "aiSuggestion": "See a general physician within a few days",
+    "aiRawResponse": "{\"urgency\":\"MEDIUM\",\"suggestion\":\"See a general physician within a few days\",\"possibleConditions\":[\"Common cold\",\"Pharyngitis\"],\"redFlags\":[],\"selfCare\":[\"Rest and stay hydrated\",\"Take over-the-counter pain relievers such as acetaminophen or ibuprofen\",\"Gargle with warm salt water to soothe sore throat\"]}",
+    "checkedAt": "2026-09-26T02:07:08.903Z"
+  },
+  {
+    "id": "d2ebdbe3-74e9-4cbf-a3a5-4cc544212044",
+    "patientId": "2569c34f-90a9-4db2-ad20-f6ec2ecb8376",
+    "symptoms": "Persistent headache for two days with mild fever and sore throat",
+    "aiUrgency": "MEDIUM",
+    "aiSuggestion": "See a general physician within 2-3 days",
+    "aiRawResponse": "{\"urgency\":\"MEDIUM\",\"suggestion\":\"See a general physician within 2-3 days\",\"possibleConditions\":[\"viral upper respiratory infection\",\"acute sinusitis\",\"pharyngitis\"],\"redFlags\":[],\"selfCare\":[\"rest\",\"stay hydrated\",\"take over-the-counter pain relievers such as acetaminophen or ibuprofen\",\"gargle with warm salt water\"]}",
+    "checkedAt": "2026-09-26T02:07:56.364Z"
+  },
+  {
+    "id": "ef67ae00-38a0-41aa-95f8-7359cc5c7c7a",
+    "patientId": "2569c34f-90a9-4db2-ad20-f6ec2ecb8376",
+    "symptoms": "Persistent headache for two days with mild fever and sore throat",
+    "aiUrgency": "MEDIUM",
+    "aiSuggestion": "See a general physician within 2-3 days for evaluation.",
+    "aiRawResponse": "{\"urgency\":\"MEDIUM\",\"suggestion\":\"See a general physician within 2-3 days for evaluation.\",\"possibleConditions\":[\"Upper respiratory infection\",\"Sinusitis\",\"Pharyngitis\"],\"redFlags\":[\"Severe headache or worsening pain\",\"Vision changes or double vision\",\"High fever >38.5°C\",\"Difficulty swallowing or breathing\",\"Persistent vomiting or severe nausea\"],\"selfCare\":[\"Rest and adequate sleep\",\"Stay hydrated with water or electrolyte drinks\",\"Take over-the-counter pain relievers such as acetaminophen or ibuprofen\",\"Gargle with warm salt water to soothe sore throat\",\"Use saline nasal spray to relieve congestion\"]}",
+    "checkedAt": "2026-09-26T02:08:28.148Z"
+  },
+  {
+    "id": "b412a572-eb72-424d-a50a-79cc57ec6805",
+    "patientId": "2569c34f-90a9-4db2-ad20-f6ec2ecb8376",
+    "symptoms": "Persistent headache for two days with mild fever and sore throat",
+    "aiUrgency": "MEDIUM",
+    "aiSuggestion": "See a primary care provider within the next few days for evaluation and possible treatment.",
+    "aiRawResponse": "{\"urgency\":\"MEDIUM\",\"suggestion\":\"See a primary care provider within the next few days for evaluation and possible treatment.\",\"possibleConditions\":[\"viral pharyngitis\",\"strep throat\"],\"redFlags\":[],\"selfCare\":[\"rest\",\"stay hydrated\",\"take over-the-counter pain relievers as needed\",\"gargle with warm salt water\"]}",
+    "checkedAt": "2026-09-26T02:09:02.795Z"
+  },
+  {
+    "id": "fdb27aae-3a8e-4ad5-be0c-6c009d4ff572",
+    "patientId": "2569c34f-90a9-4db2-ad20-f6ec2ecb8376",
+    "symptoms": "Persistent headache for two days with mild fever and sore throat",
+    "aiUrgency": "MEDIUM",
+    "aiSuggestion": "See a general physician within 2-3 days",
+    "aiRawResponse": "{\"urgency\":\"MEDIUM\",\"suggestion\":\"See a general physician within 2-3 days\",\"possibleConditions\":[\"viral upper respiratory infection\",\"strep throat\"],\"redFlags\":[],\"selfCare\":[\"rest\",\"stay hydrated\",\"take over-the-counter pain relievers such as acetaminophen or ibuprofen\",\"warm saltwater gargles\"]}",
+    "checkedAt": "2026-09-26T02:09:39.529Z"
+  },
+  {
+    "id": "81214528-3ffe-4397-9f82-56c36700323d",
+    "patientId": "2569c34f-90a9-4db2-ad20-f6ec2ecb8376",
+    "symptoms": "Persistent headache for two days with mild fever and sore throat",
+    "aiUrgency": "MEDIUM",
+    "aiSuggestion": "See a primary care provider within the next few days for evaluation.",
+    "aiRawResponse": "{\"urgency\":\"MEDIUM\",\"suggestion\":\"See a primary care provider within the next few days for evaluation.\",\"possibleConditions\":[\"viral upper respiratory infection\",\"acute sinusitis\"],\"redFlags\":[],\"selfCare\":[\"Rest and stay hydrated\",\"Take over-the-counter pain relievers such as acetaminophen or ibuprofen\",\"Use a saline nasal spray or steam inhalation\",\"Gargle with warm salt water to soothe sore throat\"]}",
+    "checkedAt": "2026-09-26T02:14:00.254Z"
+  },
+  {
+    "id": "2f605ac7-f001-47a7-aed4-d1b853845bae",
+    "patientId": "2569c34f-90a9-4db2-ad20-f6ec2ecb8376",
+    "symptoms": "Persistent headache for two days with mild fever and sore throat",
+    "aiUrgency": "MEDIUM",
+    "aiSuggestion": "See a general physician within 2-3 days for evaluation.",
+    "aiRawResponse": "{\"urgency\":\"MEDIUM\",\"suggestion\":\"See a general physician within 2-3 days for evaluation.\",\"possibleConditions\":[\"viral upper respiratory infection\",\"acute sinusitis\",\"pharyngitis\"],\"redFlags\":[\"difficulty breathing\",\"severe pain\",\"high fever >38.5°C\",\"neck stiffness\"],\"selfCare\":[\"rest\",\"stay hydrated\",\"over-the-counter pain relievers\",\"warm saltwater gargle\"]}",
+    "checkedAt": "2026-09-26T02:14:29.434Z"
+  },
+  {
+    "id": "cd119671-fd0f-410b-8f8a-9b33546a3296",
+    "patientId": "2569c34f-90a9-4db2-ad20-f6ec2ecb8376",
+    "symptoms": "Persistent headache for two days with mild fever and sore throat",
+    "aiUrgency": "MEDIUM",
+    "aiSuggestion": "See a general physician within 2-3 days",
+    "aiRawResponse": "{\"urgency\":\"MEDIUM\",\"suggestion\":\"See a general physician within 2-3 days\",\"possibleConditions\":[\"viral upper respiratory infection\",\"acute sinusitis\",\"pharyngitis\"],\"redFlags\":[],\"selfCare\":[\"rest\",\"stay hydrated\",\"take over-the-counter pain relievers such as acetaminophen or ibuprofen\",\"warm saline nasal rinse\"]}",
+    "checkedAt": "2026-09-26T02:15:07.176Z"
+  },
+  {
+    "id": "dab49770-4dbe-41fb-968e-88c70375880b",
+    "patientId": "2569c34f-90a9-4db2-ad20-f6ec2ecb8376",
+    "symptoms": "Persistent headache for two days with mild fever and sore throat",
+    "aiUrgency": "MEDIUM",
+    "aiSuggestion": "See a general physician within the next few days for evaluation.",
+    "aiRawResponse": "{\"urgency\":\"MEDIUM\",\"suggestion\":\"See a general physician within the next few days for evaluation.\",\"possibleConditions\":[\"viral upper respiratory infection\",\"acute sinusitis\"],\"redFlags\":[],\"selfCare\":[\"rest\",\"stay hydrated\",\"over-the-counter analgesics\",\"warm saltwater gargle\"]}",
+    "checkedAt": "2026-09-26T02:15:41.651Z"
+  }
+]

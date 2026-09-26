@@ -3,9 +3,13 @@ import { redirect } from 'next/navigation';
 import { jwtVerify } from 'jose';
 import { prisma } from '@/lib/prisma';
 
-const secretKey = new TextEncoder().encode(
-  process.env.JWT_SECRET || 'super-secret-key-for-development',
-);
+function getJwtSecretKey() {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    throw new Error('JWT_SECRET environment variable is required');
+  }
+  return new TextEncoder().encode(secret);
+}
 
 export interface Session {
   id: string;
@@ -21,7 +25,7 @@ export async function getSession(): Promise<Session> {
   }
 
   try {
-    const { payload } = await jwtVerify(token, secretKey);
+    const { payload } = await jwtVerify(token, getJwtSecretKey());
     const id = payload.id as string;
 
     const dbUser = await prisma.user.findUnique({
